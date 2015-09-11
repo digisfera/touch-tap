@@ -11,7 +11,7 @@
     "dev": "watchify test/index.js -o test/index.bundle.js",
     "serveTest": "lrhs -d test -b",
     "browserify": "browserify -s TouchTap src/TouchTap.js | cat src/header.js - > dist/TouchTap.js",
-    "minify": "uglifyjs dist/TouchTap.js -o dist/TouchTap.min.js --comments /@license/",
+    "minify": "uglifyjs dist/TouchTap.js -o dist/TouchTap.min.js -m --comments /@license/",
     "build": "npm run browserify && npm run minify"
   },
   "keywords": [
