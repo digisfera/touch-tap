@@ -83,7 +83,7 @@ function createListener(element, type, listener, useCapture) {
   element.addEventListener(type, listener, useCapture);
 
   var removeListener = function() {
-    element.removeEventListener(listener, useCapture);
+    element.removeEventListener(type, listener, useCapture);
   };
 
   return removeListener;
