@@ -1,0 +1,31 @@
+{
+  "name": "touch-tap",
+  "version": "1.0.0",
+  "description": "Detect tap with touch events",
+  "main": "src/TouchTap.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "watchify test/index.js -o test/index.bundle.js",
+    "serveTest": "lrhs -d test -b",
+    "browserify": "browserify -s TouchTap src/TouchTap.js | cat src/header.js - > dist/TouchTap.js",
+    "minify": "uglifyjs dist/TouchTap.js -o dist/TouchTap.min.js --comments /@license/",
+    "build": "npm run browserify && npm run minify"
+  },
+  "keywords": [
+    "touch",
+    "tap",
+    "fastbutton",
+    "fastclick"
+  ],
+  "author": "Digisfera",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^11.1.0",
+    "lr-http-server": "^0.1.1",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.4.0"
+  }
+}
