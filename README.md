@@ -1,8 +1,7 @@
 touch-tap
 =========
 
-Detect tap using touch events
-
+Detect a tap using touch events to prevent the 300ms delay on some mobile devices.
 
 Usage
 -----
