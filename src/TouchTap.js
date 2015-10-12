@@ -2,11 +2,10 @@
 
 var GhostClickBuster = require('./GhostClickBuster');
 
-/* Detect a tap using touch events.
-   This can be used to prevent the 300ms delay of the click handler on iOS. 
-*/
+// Detect a tap using touch events.
+// This can be used to prevent the 300ms delay of the click handler on iOS.
 
-// If touch events move more than this number of pixels, the tap is not triggered
+// If touch events move more than this number of pixels, the tap is not triggered.
 var threshold = 12;
 
 function TouchTap(element, listener, useCapture) {

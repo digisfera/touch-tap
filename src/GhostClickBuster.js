@@ -1,6 +1,6 @@
 'use strict';
 
-// Time during which clicks will be prevented
+// Time during which clicks will be prevented (in ms)
 var timeout = 2500;
 
 // Radius around which clicks will be prevented (in px)
@@ -19,14 +19,13 @@ GhostClickBuster.prototype.destroy = function() {
 
 GhostClickBuster.prototype.register = function(x, y) {
   this._clicks.push({x: x, y: y});
-
-  var self = this;
-  setTimeout(self._clicks.pop, timeout);
+  var pop = this._clicks.pop.bind(this._clicks);
+  setTimeout(pop, timeout);
 };
 
 GhostClickBuster.prototype._handleClick = function(evt) {
   var shouldBust = this._clicks.some(function(click) {
-    
+
     // Ignore the event if it is within radius of a previous one
     var dx = click.x - evt.clientX;
     var dy = click.y - evt.clientY;
@@ -35,7 +34,7 @@ GhostClickBuster.prototype._handleClick = function(evt) {
     return dist < radius;
   });
 
-  if(shouldBust) {
+  if (shouldBust) {
     evt.stopPropagation();
     evt.preventDefault();
   }
