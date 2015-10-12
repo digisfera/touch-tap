@@ -6,7 +6,7 @@
  (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.TouchTap = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-// Time during which clicks will be prevented
+// Time during which clicks will be prevented (in ms)
 var timeout = 2500;
 
 // Radius around which clicks will be prevented (in px)
@@ -25,14 +25,13 @@ GhostClickBuster.prototype.destroy = function() {
 
 GhostClickBuster.prototype.register = function(x, y) {
   this._clicks.push({x: x, y: y});
-
-  var self = this;
-  setTimeout(self._clicks.pop, timeout);
+  var pop = this._clicks.pop.bind(this._clicks);
+  setTimeout(pop, timeout);
 };
 
 GhostClickBuster.prototype._handleClick = function(evt) {
   var shouldBust = this._clicks.some(function(click) {
-    
+
     // Ignore the event if it is within radius of a previous one
     var dx = click.x - evt.clientX;
     var dy = click.y - evt.clientY;
@@ -41,23 +40,23 @@ GhostClickBuster.prototype._handleClick = function(evt) {
     return dist < radius;
   });
 
-  if(shouldBust) {
+  if (shouldBust) {
     evt.stopPropagation();
     evt.preventDefault();
   }
 };
 
 module.exports = GhostClickBuster;
+
 },{}],2:[function(require,module,exports){
 'use strict';
 
 var GhostClickBuster = require('./GhostClickBuster');
 
-/* Detect a tap using touch events.
-   This can be used to prevent the 300ms delay of the click handler on iOS. 
-*/
+// Detect a tap using touch events.
+// This can be used to prevent the 300ms delay of the click handler on iOS.
 
-// If touch events move more than this number of pixels, the tap is not triggered
+// If touch events move more than this number of pixels, the tap is not triggered.
 var threshold = 12;
 
 function TouchTap(element, listener, useCapture) {
@@ -141,5 +140,6 @@ function createListener(element, type, listener, useCapture) {
 }
 
 module.exports = TouchTap;
+
 },{"./GhostClickBuster":1}]},{},[2])(2)
 });
